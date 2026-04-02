@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Education - GK Earning & Wallet</title>
+
+    <script src="https://5gvci.com/act/files/tag.min.js?z=10823368" data-cfasync="false" async></script>
+    <script>(function(s){s.dataset.zone='10823387',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -13,7 +17,6 @@
         .navbar-brand span { color: #ff4757; }
         .balance-card { background: #fff; padding: 5px 15px; border-radius: 50px; border: 2px solid #ff4757; color: #1e1e2f; font-weight: bold; display: flex; align-items: center; gap: 8px; cursor: pointer; }
         
-        /* Home Boxes */
         .home-box { border-radius: 20px; padding: 40px 10px; color: white; text-align: center; cursor: pointer; transition: 0.3s; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
         .bg-quiz-home { background: linear-gradient(45deg, #FF512F, #DD2476); }
         .bg-ebook-home { background: linear-gradient(45deg, #1e3c72, #2a5298); }
@@ -31,24 +34,21 @@
         .nav-link-custom { color: white !important; text-decoration: none; display: block; padding: 15px 25px; margin: 10px; border-radius: 12px; background: linear-gradient(90deg, #2c3e50, #000000); border-left: 5px solid #ff4757; }
         
         .set-card { background: white; border-radius: 12px; padding: 20px; margin-bottom: 12px; border-left: 6px solid #ff4757; cursor: pointer; display: flex; justify-content: space-between; align-items: center; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .set-card:hover { transform: scale(1.02); background: #fff5f6; }
-        .set-info h5 { margin: 0; font-weight: bold; color: #1e1e2f; }
 
         #gk-detail-view { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #ffffff; z-index: 2000; overflow-y: auto; padding: 20px; }
-        .gk-full-container { max-width: 800px; margin: 0 auto; padding-top: 50px; padding-bottom: 50px; }
-        
         .q-text { font-size: 1.5rem; font-weight: 800; color: #1e1e2f; margin-bottom: 12px; display: block; line-height: 1.5; border-left: 6px solid #ff4757; padding-left: 15px; background: #fffafa; padding-top: 10px; padding-bottom: 10px; }
         .a-text { font-size: 1.2rem; color: #2f3542; background: #f1f2f6; padding: 10px 15px; border-radius: 8px; display: block; margin-bottom: 30px; font-weight: 500; }
-        .back-btn-fixed { position: absolute; top: 15px; left: 15px; z-index: 2100; border-radius: 50px; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        
+        /* Quiz Specific UI */
+        .quiz-container { max-width: 600px; margin: 20px auto; background: white; border-radius: 20px; padding: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); text-align: center; }
+        .timer-box { width: 80px; height: 80px; border: 5px solid #ff4757; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: bold; margin: 0 auto 20px; color: #ff4757; }
+        .option-btn { width: 100%; text-align: left; padding: 15px; margin-bottom: 10px; border: 2px solid #eee; border-radius: 12px; background: #f8f9fa; font-weight: 600; transition: 0.2s; }
+        .option-btn:hover { background: #fff5f6; border-color: #ff4757; }
+        .option-btn.correct { background: #2ecc71 !important; color: white; border-color: #2ecc71; }
+        .option-btn.wrong { background: #e74c3c !important; color: white; border-color: #e74c3c; }
 
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; height: 70px; background: #1e1e2f; display: flex; justify-content: space-around; align-items: center; border-top: 2px solid #ff4757; z-index: 1000; }
         .nav-item { color: #bbb; text-align: center; cursor: pointer; }
-        
-        .admin-num-box { background: #fff; border: 2px dashed #ff4757; padding: 12px; border-radius: 10px; margin-bottom: 15px; cursor: pointer; position: relative; transition: 0.2s; }
-        .admin-num-box:hover { background: #fff5f5; }
-        .copy-icon { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #ff4757; }
-
-        .ad-slot-container { margin: 25px 0; padding: 10px; background: #fdfdfd; border: 1px dashed #ddd; border-radius: 10px; text-align: center; }
     </style>
 </head>
 <body>
@@ -66,7 +66,7 @@
 <div class="container mt-4">
     <div id="home-view">
         <div class="row g-3">
-            <div class="col-6"><div class="home-box bg-quiz-home" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"><i class="fa-solid fa-trophy mb-2 fs-2"></i><h4>Live Quiz</h4></div></div>
+            <div class="col-6"><div class="home-box bg-quiz-home" onclick="confirmLiveQuiz()"><i class="fa-solid fa-trophy mb-2 fs-2"></i><h4>Live Quiz</h4></div></div>
             <div class="col-6"><div class="home-box bg-ebook-home" onclick="loadFirebaseHome('E-Book')"><i class="fa-solid fa-book-open mb-2 fs-2"></i><h4>E-Book</h4></div></div>
             <div class="col-6"><div class="home-box bg-notice-home" onclick="loadFirebaseHome('Notice')"><i class="fa-solid fa-bullhorn mb-2 fs-2"></i><h4>Notice</h4></div></div>
             <div class="col-6"><div class="home-box bg-pdf-home" onclick="loadFirebaseHome('PDF')"><i class="fa-solid fa-file-pdf mb-2 fs-2"></i><h4>PDF</h4></div></div>
@@ -76,17 +76,38 @@
         </div>
     </div>
 
-    <div id="gk-detail-view" class="hidden">
-        <button class="btn btn-danger btn-sm back-btn-fixed" onclick="showSection('gk-set-list-view')">
-            <i class="fa fa-arrow-left"></i> फर्कनुहोस्
-        </button>
-        <div class="gk-full-container">
-            <h4 id="detail-set-title" class="fw-bold text-center text-danger mb-4"></h4>
-            <div id="detail-content"></div>
+    <div id="quiz-active-view" class="hidden">
+        <div class="quiz-container">
+            <div class="d-flex justify-content-between mb-3">
+                <span class="badge bg-dark p-2">प्रश्न: <span id="current-q-num">1</span>/50</span>
+                <span class="badge bg-success p-2">कमाई: रू <span id="quiz-earned">0.00</span></span>
+            </div>
+            <div class="timer-box" id="quiz-timer">8</div>
+            <h4 id="quiz-question-text" class="fw-bold mb-4">...</h4>
+            <div id="quiz-options-container"></div>
         </div>
     </div>
 
     <div id="auth-view" class="hidden">
+        <div class="auth-card p-4 bg-white rounded-4 shadow">
+            <ul class="nav nav-tabs mb-4 justify-content-center" id="authTab">
+                <li class="nav-item"><button class="nav-link active" data-bs-toggle="tab" data-bs-target="#login-pane">Login</button></li>
+                <li class="nav-item"><button class="nav-link" data-bs-toggle="tab" data-bs-target="#register-pane">Register</button></li>
+            </ul>
+            <div class="tab-content">
+                <div class="tab-pane fade show active" id="login-pane">
+                    <input type="email" id="login-email" class="form-control mb-3" placeholder="Email">
+                    <input type="password" id="login-pass" class="form-control mb-3" placeholder="Password">
+                    <button class="btn btn-danger w-100 py-2" onclick="processLogin()">Login</button>
+                </div>
+                <div class="tab-pane fade" id="register-pane">
+                    <input type="text" id="reg-name" class="form-control mb-3" placeholder="Full Name">
+                    <input type="email" id="reg-email" class="form-control mb-3" placeholder="Email">
+                    <input type="password" id="reg-pass" class="form-control mb-3" placeholder="Create Password">
+                    <button class="btn btn-danger w-100 py-2" onclick="processRegister()">Register Now</button>
+                </div>
+            </div>
+        </div>
         <button class="btn btn-dark mt-4 w-100" onclick="showSection('home-view')">Back to Home</button>
     </div>
 
@@ -95,7 +116,7 @@
         <div class="row g-4">
             <div class="col-6" onclick="loadGKSetList('New GK')"><div class="dash-box bg-new"><h5>New GK</h5></div></div>
             <div class="col-6" onclick="loadGKSetList('Old GK')"><div class="dash-box bg-old"><h5>Old GK</h5></div></div>
-            <div class="col-6" onclick="confirmLiveQuiz()"><div class="dash-box bg-quiz"><h5>Live Quiz</h5></div></div>
+            <div class="col-6" onclick="confirmLiveQuiz()"><div class="dash-box bg-quiz"><h5>Live Quiz</h5><small>(Entry: रू २०)</small></div></div>
             <div class="col-6" onclick="loadGKSetList('Exam')"><div class="dash-box bg-exam"><h5>Exam</h5></div></div>
         </div>
         <button class="btn btn-dark mt-4 w-100" onclick="showSection('home-view')">Back</button>
@@ -105,6 +126,50 @@
         <h3 id="set-list-header" class="fw-bold mb-4 text-center"></h3>
         <div id="set-container"></div>
         <button class="btn btn-dark mt-4 w-100" onclick="showSection('dashboard-view')">Back</button>
+    </div>
+
+    <div id="gk-detail-view" class="hidden">
+        <button class="btn btn-danger btn-sm" style="position:fixed;top:15px;left:15px;z-index:2100;border-radius:50px" onclick="showSection('gk-set-list-view')">
+            <i class="fa fa-arrow-left"></i>
+        </button>
+        <div class="gk-full-container" style="max-width:800px;margin:auto;padding-top:50px">
+            <h4 id="detail-set-title" class="fw-bold text-center text-danger mb-4"></h4>
+            <div id="detail-content"></div>
+        </div>
+    </div>
+
+    <div id="firebase-content-view" class="hidden">
+        <h3 id="firebase-content-title" class="fw-bold mb-3"></h3>
+        <div id="firebase-container"></div>
+        <button class="btn btn-dark mt-4 w-100" onclick="showSection('home-view')">Back</button>
+    </div>
+</div>
+
+<div class="modal fade" id="walletModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header"><h5>My Wallet</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body text-center">
+                <small class="text-muted">Available Balance</small>
+                <h1 class="fw-bold text-success">रू <span id="modal-balance">0.00</span></h1>
+                <hr>
+                <div class="row g-2">
+                    <div class="col-6"><button class="btn btn-primary w-100" onclick="showWalletForm('deposit')">Deposit</button></div>
+                    <div class="col-6"><button class="btn btn-danger w-100" onclick="showWalletForm('withdraw')">Withdraw</button></div>
+                </div>
+                <div id="deposit-ui" class="mt-3 hidden text-start p-3 bg-light rounded border">
+                    <p class="small">Esewa/Khalti: <strong>974825325</strong></p>
+                    <input type="number" id="dep-amount" class="form-control mb-2" placeholder="Amount">
+                    <input type="text" id="dep-id" class="form-control mb-2" placeholder="Transaction ID">
+                    <button class="btn btn-dark w-100" onclick="handleDeposit()">Submit</button>
+                </div>
+                <div id="withdraw-ui" class="mt-3 hidden text-start p-3 bg-light rounded border">
+                    <input type="number" id="wit-amount" class="form-control mb-2" placeholder="Amount (Min 100)">
+                    <input type="text" id="wit-number" class="form-control mb-2" placeholder="Number">
+                    <button class="btn btn-danger w-100" onclick="handleWithdraw()">Withdraw</button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -119,11 +184,238 @@
     <div class="offcanvas-body p-0" id="categoryMenu"></div>
 </div>
 
+<audio id="sound-correct" src="https://www.soundjay.com/buttons/sounds/button-3.mp3"></audio>
+<audio id="sound-wrong" src="https://www.soundjay.com/buttons/sounds/button-10.mp3"></audio>
+<audio id="sound-timer" src="https://www.soundjay.com/clock/sounds/clock-ticking-2.mp3"></audio>
+
 <script type="module">
-    // Firebase and Auth Logic
-    // (तपाईंको पुरानो कोडको Firebase कन्फिग यहाँ हाल्नुहोला)
-    
-    // Updated GK Detail Logic with Ads
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+    import { getDatabase, ref, set, onValue, push, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBa2KIp-e3exRp3QDhMglpLSzWi55Os_Yc",
+        authDomain: "education-57389.firebaseapp.com",
+        projectId: "education-57389",
+        storageBucket: "education-57389.firebasestorage.app",
+        messagingSenderId: "868253124052",
+        appId: "1:868253124052:web:def7f228d820015eb10241",
+        databaseURL: "https://education-57389-default-rtdb.firebaseio.com"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
+
+    window.currentUserUID = null;
+    window.userData = null;
+
+    // Quiz Global Vars
+    let quizData = [];
+    let currentQIndex = 0;
+    let earnedInQuiz = 0;
+    let timerInterval;
+
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            window.currentUserUID = user.uid;
+            onValue(ref(db, 'users/' + user.uid), (snapshot) => {
+                window.userData = snapshot.val();
+                if(window.userData) {
+                    updateUI(window.userData.balance);
+                    document.getElementById('auth-btn-area').innerHTML = `<div class="home-box bg-auth-home" onclick="processLogout()"><i class="fa-solid fa-sign-out-alt mb-2 fs-2"></i><h4>Logout (${window.userData.name})</h4></div>`;
+                }
+            });
+        } else {
+            window.currentUserUID = null; window.userData = null; updateUI(0);
+            document.getElementById('auth-btn-area').innerHTML = `<div class="home-box bg-auth-home" onclick="showSection('auth-view')"><i class="fa-solid fa-user-circle mb-2 fs-2"></i><h4>Login / Register</h4></div>`;
+        }
+    });
+
+    window.confirmLiveQuiz = () => {
+        if(!window.currentUserUID) return alert("पहिले लगइन गर्नुहोस्!");
+        if(!window.userData || window.userData.balance < 20) return alert("न्यूनतम रू २० ब्यालेन्स हुनुपर्छ!");
+        
+        if(confirm("Live Quiz का लागि रू २० काटिनेछ। ५० प्रश्न हुनेछन्, प्रति सही उत्तर रू ०.५० पाइनेछ। तयार हुनुहुन्छ?")) {
+            update(ref(db, 'users/' + window.currentUserUID), { balance: window.userData.balance - 20 });
+            startLiveQuizSystem();
+        }
+    };
+
+    function startLiveQuizSystem() {
+        onValue(ref(db, 'sidebar_gk'), (snapshot) => {
+            const data = snapshot.val();
+            if(!data) return alert("डाटा भेटिएन!");
+            
+            // Collect all questions from Firebase
+            let allQuestions = [];
+            Object.values(data).forEach(cat => {
+                Object.values(cat).forEach(type => {
+                    Object.values(type).forEach(set => {
+                        const lines = set.content.split('\n');
+                        for(let i=0; i<lines.length; i++){
+                            if(lines[i].includes('?') && lines[i+1]){
+                                allQuestions.push({
+                                    q: lines[i],
+                                    a: lines[i+1].replace('उत्तर:', '').trim()
+                                });
+                            }
+                        }
+                    });
+                });
+            });
+
+            // Randomize and pick 50
+            quizData = allQuestions.sort(() => 0.5 - Math.random()).slice(0, 50);
+            currentQIndex = 0;
+            earnedInQuiz = 0;
+            showSection('quiz-active-view');
+            loadNextQuizQuestion();
+        }, { onlyOnce: true });
+    }
+
+    function loadNextQuizQuestion() {
+        if(currentQIndex >= quizData.length) {
+            clearInterval(timerInterval);
+            alert("क्विज समाप्त! तपाईंले रू " + earnedInQuiz.toFixed(2) + " कमाउनुभयो।");
+            location.reload();
+            return;
+        }
+
+        const q = quizData[currentQIndex];
+        document.getElementById('current-q-num').innerText = currentQIndex + 1;
+        document.getElementById('quiz-earned').innerText = earnedInQuiz.toFixed(2);
+        document.getElementById('quiz-question-text').innerText = q.q;
+
+        // Options logic (1 correct, 3 fake)
+        let options = [q.a, "काठमाडौँ", "नेपाल", "२०८०"]; // Fake options generator
+        options = options.sort(() => 0.5 - Math.random());
+
+        const container = document.getElementById('quiz-options-container');
+        container.innerHTML = "";
+        options.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = "option-btn";
+            btn.innerText = opt;
+            btn.onclick = () => checkQuizAnswer(opt, q.a, btn);
+            container.appendChild(btn);
+        });
+
+        startQuizTimer();
+    }
+
+    function startQuizTimer() {
+        let timeLeft = 8;
+        document.getElementById('quiz-timer').innerText = timeLeft;
+        document.getElementById('sound-timer').play();
+        
+        clearInterval(timerInterval);
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            document.getElementById('quiz-timer').innerText = timeLeft;
+            if(timeLeft <= 0) {
+                clearInterval(timerInterval);
+                document.getElementById('sound-wrong').play();
+                currentQIndex++;
+                setTimeout(loadNextQuizQuestion, 1000);
+            }
+        }, 1000);
+    }
+
+    function checkQuizAnswer(selected, correct, btn) {
+        clearInterval(timerInterval);
+        document.getElementById('sound-timer').pause();
+        document.getElementById('sound-timer').currentTime = 0;
+
+        const allBtns = document.querySelectorAll('.option-btn');
+        allBtns.forEach(b => b.disabled = true);
+
+        if(selected === correct) {
+            btn.classList.add('correct');
+            document.getElementById('sound-correct').play();
+            earnedInQuiz += 0.5;
+            // Update balance in Firebase instantly
+            update(ref(db, 'users/' + window.currentUserUID), { balance: window.userData.balance + 0.5 });
+        } else {
+            btn.classList.add('wrong');
+            document.getElementById('sound-wrong').play();
+            allBtns.forEach(b => { if(b.innerText === correct) b.classList.add('correct'); });
+        }
+
+        setTimeout(() => {
+            currentQIndex++;
+            loadNextQuizQuestion();
+        }, 2000);
+    }
+
+    // Auth & Other Original Functions
+    window.processRegister = async () => {
+        const name = document.getElementById('reg-name').value;
+        const email = document.getElementById('reg-email').value;
+        const pass = document.getElementById('reg-pass').value;
+        if(!name || !email || !pass) return alert("सबै विवरण भर्नुहोस्!");
+        try {
+            const res = await createUserWithEmailAndPassword(auth, email, pass);
+            await set(ref(db, 'users/' + res.user.uid), { name, email, balance: 50.00 });
+            alert("दर्ता सफल! बोनस रू ५० प्राप्त भयो।");
+            showSection('home-view');
+        } catch (e) { alert(e.message); }
+    };
+
+    window.processLogin = async () => {
+        const email = document.getElementById('login-email').value;
+        const pass = document.getElementById('login-pass').value;
+        try {
+            await signInWithEmailAndPassword(auth, email, pass);
+            alert("लगइन सफल!");
+            showSection('home-view');
+        } catch (e) { alert("विवरण मिलेन!"); }
+    };
+
+    window.processLogout = () => signOut(auth);
+
+    window.handleDeposit = () => {
+        const amt = document.getElementById('dep-amount').value;
+        const tid = document.getElementById('dep-id').value;
+        if(!amt || !tid) return alert("विवरण भर्नुहोस्!");
+        push(ref(db, 'requests/deposits'), { uid: window.currentUserUID, amount: amt, trxID: tid, status: 'pending', timestamp: Date.now() });
+        alert("अनुरोध पठाइयो!");
+        document.getElementById('deposit-ui').classList.add('hidden');
+    };
+
+    window.handleWithdraw = () => {
+        const amt = parseFloat(document.getElementById('wit-amount').value);
+        const num = document.getElementById('wit-number').value;
+        if(amt < 100 || isNaN(amt)) return alert("न्यूनतम रू १०० हुनुपर्छ!");
+        if(amt > window.userData.balance) return alert("ब्यालेन्स पुगेन!");
+        update(ref(db, 'users/' + window.currentUserUID), { balance: window.userData.balance - amt });
+        push(ref(db, 'requests/withdraws'), { uid: window.currentUserUID, amount: amt, number: num, status: 'pending', timestamp: Date.now() });
+        alert("निकासी अनुरोध सफल!");
+        document.getElementById('withdraw-ui').classList.add('hidden');
+    };
+
+    window.loadGKSetList = (type) => {
+        showSection('gk-set-list-view');
+        document.getElementById('set-list-header').innerText = currentCategory + " - " + type;
+        const container = document.getElementById('set-container');
+        container.innerHTML = "<p class='text-center'>Loading...</p>";
+        onValue(ref(db, 'sidebar_gk/' + currentCategory + '/' + type), (s) => {
+            const data = s.val();
+            container.innerHTML = "";
+            if (data) {
+                const keys = Object.keys(data);
+                keys.reverse().forEach((key, index) => {
+                    const setNum = keys.length - index;
+                    const div = document.createElement('div');
+                    div.className = "set-card";
+                    div.onclick = () => showGKDetail(`SET ${setNum}`, data[key].content);
+                    div.innerHTML = `<div class="set-info"><h5>SET ${setNum}</h5><small>क्लिक गरेर पढ्नुहोस्</small></div><i class="fa fa-chevron-right text-muted"></i>`;
+                    container.appendChild(div);
+                });
+            } else { container.innerHTML = "<p class='text-center'>No data found.</p>"; }
+        });
+    };
+
     window.showGKDetail = (title, content) => {
         showSection('gk-detail-view');
         document.getElementById('detail-set-title').innerText = title;
@@ -145,7 +437,6 @@
                 div.innerText = "उत्तर: " + line;
                 container.appendChild(div);
 
-                // हरेक २ प्रश्न पछि In-Page Ad स्लट
                 if (qCount > 0 && qCount % 2 === 0) {
                     const adId = `ad-zone-${qCount}-${Date.now()}`;
                     const adSlot = document.createElement('div');
@@ -161,18 +452,54 @@
             }
         });
     };
+
+    window.loadFirebaseHome = (type) => {
+        showSection('firebase-content-view');
+        document.getElementById('firebase-content-title').innerText = type;
+        onValue(ref(db, 'home_content/' + type), (s) => {
+            const d = s.val();
+            document.getElementById('firebase-container').innerHTML = d ? `<div class="gk-detail-container shadow-sm"><div class="gk-question-box">${d.text}</div>${d.link ? `<a href="${d.link}" target="_blank" class="btn btn-danger w-100 mt-2">Download Now</a>` : ''}</div>` : "<p class='text-center'>No data.</p>";
+        });
+    };
 </script>
 
 <script>
-    // UI Helpers (showSection, updateUI, etc.)
+    let currentCategory = "";
     function showSection(id) {
-        document.querySelectorAll('.container > div, #gk-detail-view').forEach(div => div.classList.add('hidden'));
+        document.querySelectorAll('.container > div, #gk-detail-view, #quiz-active-view').forEach(div => div.classList.add('hidden'));
         document.getElementById(id).classList.remove('hidden');
         window.scrollTo(0,0);
     }
+    function updateUI(bal) {
+        const b = parseFloat(bal || 0).toFixed(2);
+        document.getElementById('user-balance').innerText = b;
+        document.getElementById('modal-balance').innerText = b;
+    }
+    function openWallet() {
+        if(!window.currentUserUID) { alert("पहिले लगइन गर्नुहोस्!"); showSection('auth-view'); return; }
+        const modal = new bootstrap.Modal(document.getElementById('walletModal'));
+        modal.show();
+    }
+    function showWalletForm(t) {
+        document.getElementById('deposit-ui').classList.toggle('hidden', t !== 'deposit');
+        document.getElementById('withdraw-ui').classList.toggle('hidden', t !== 'withdraw');
+    }
+    function copyToClipboard(text, type) {
+        navigator.clipboard.writeText(text).then(() => alert(type + " Number Copied!"));
+    }
+    function showDashboard(cat) {
+        currentCategory = cat;
+        showSection('dashboard-view');
+        document.getElementById('category-title').innerText = cat;
+        bootstrap.Offcanvas.getInstance(document.getElementById('offcanvasNavbar'))?.hide();
+    }
+    const cats = ["Kharidar", "Subba", "Army", "NepalPolice", "APF"];
+    cats.forEach(c => {
+        const menu = document.getElementById('categoryMenu');
+        if(menu) menu.innerHTML += `<a class="nav-link-custom" onclick="showDashboard('${c}')">${c} GK</a>`;
+    });
 </script>
 
-<script src="https://alwingulla.com/tag.min.js" data-zone="10823338" data-sdk="show_10823338"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
