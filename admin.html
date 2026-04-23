@@ -3,227 +3,189 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Master Admin - GK Control Center</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Sancharpati Admin - New Key</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { background-color: #f0f2f5; padding-bottom: 80px; font-family: 'Segoe UI', sans-serif; }
-        .admin-header { background: #1a1a2e; color: white; padding: 15px; text-align: center; font-weight: bold; font-size: 1.3rem; border-bottom: 4px solid #ff4757; }
-        
-        .stats-container { padding: 15px; }
-        .stat-card { border-radius: 15px; padding: 20px; color: white; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border: none; }
-        .bg-users { background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); }
-        .bg-live { background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); }
-        .bg-deposit { background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%); }
-        .bg-withdraw { background: linear-gradient(135deg, #f80759 0%, #bc4e9c 100%); }
-        .stat-title { font-size: 1rem; font-weight: 500; opacity: 0.9; }
-        .stat-value { font-size: 1.8rem; font-weight: bold; margin-top: 5px; }
-
-        .admin-box { background: white; border-radius: 15px; padding: 20px; margin: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-top: 4px solid #1a1a2e; }
-        .section-title { font-weight: bold; color: #1a1a2e; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
-        
-        .request-card { background: #f8f9fa; border-radius: 10px; padding: 15px; margin-bottom: 10px; border-left: 5px solid #ff4757; }
-        .request-info { font-size: 0.9rem; margin-bottom: 10px; }
-        .btn-group-sm .btn { border-radius: 5px; margin-right: 5px; }
-
-        .form-control, .form-select { border-radius: 10px; padding: 10px; border: 1px solid #ddd; background: #f9f9f9; }
-        .btn-publish { background: linear-gradient(45deg, #ff4757, #ff6b81); color: white; font-weight: bold; width: 100%; padding: 12px; border-radius: 10px; border: none; transition: 0.3s; margin-top: 15px; }
-        
-        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: white; display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid #ddd; z-index: 1000; }
-        .nav-item { text-align: center; color: #666; font-size: 0.75rem; cursor: pointer; border: none; background: none; }
-        .nav-item i { font-size: 1.2rem; margin-bottom: 3px; }
-        .nav-item.active { color: #ff4757; font-weight: bold; }
-        .hidden { display: none; }
+        :root { --primary: #d32f2f; --bg: #f4f7f6; --white: #ffffff; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Mukta', sans-serif; }
+        body { background: var(--bg); padding: 10px; }
+        .container { max-width: 900px; margin: auto; }
+        .category-wrapper { background: var(--white); padding: 15px 10px; margin-bottom: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 100; }
+        .category-scroll { display: flex; overflow-x: auto; gap: 12px; padding-bottom: 10px; scrollbar-width: none; }
+        .cat-item { display: flex; flex-direction: column; align-items: center; min-width: 85px; background: #f8f9fa; padding: 10px; border-radius: 10px; cursor: pointer; border: 1px solid #eee; }
+        .cat-item.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .admin-card { background: var(--white); padding: 20px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); margin-bottom: 30px; }
+        .form-group { margin-bottom: 18px; }
+        input[type="text"], textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; outline: none; }
+        .preview-box { width: 100%; aspect-ratio: 16/9; background: #fafafa; border: 2px dashed #ccc; border-radius: 10px; margin-bottom: 15px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; cursor: pointer; }
+        .preview-box img { width: 100%; height: 100%; object-fit: cover; position: absolute; }
+        #file-input { display: none; }
+        button.publish-btn { background: var(--primary); color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; font-size: 18px; }
+        button:disabled { background: #ccc; cursor: not-allowed; }
+        .post-item { display: flex; align-items: center; justify-content: space-between; background: white; padding: 12px; border-radius: 8px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .post-info { display: flex; align-items: center; flex: 1; }
+        .post-info img { width: 65px; height: 50px; object-fit: cover; border-radius: 4px; margin-right: 12px; }
     </style>
 </head>
 <body>
 
-    <div class="admin-header"><i class="fa fa-user-shield"></i> GK MASTER ADMIN</div>
+<div class="container">
+    <h1 style="text-align:center; color:var(--primary); padding: 15px 0;">सञ्चार पाटी - एडमिन</h1>
 
-    <div id="dashboard-page" class="admin-page">
-        <div class="stats-container">
-            <div class="stat-card bg-users">
-                <div class="stat-title"><i class="fa fa-users"></i> Total Users</div>
-                <div class="stat-value" id="count-total">०</div>
-            </div>
-            <div class="stat-card bg-deposit">
-                <div class="stat-title"><i class="fa fa-wallet"></i> Deposits (Pending)</div>
-                <div class="stat-value" id="count-deposit">रू ०</div>
-            </div>
-            <div class="stat-card bg-withdraw">
-                <div class="stat-title"><i class="fa fa-money-bill-transfer"></i> Withdrawals (Pending)</div>
-                <div class="stat-value" id="count-withdraw">रू ०</div>
-            </div>
-        </div>
+    <div class="category-wrapper">
+        <h4>क्याटेगोरी छान्नुहोस्:</h4>
+        <div class="category-scroll" id="catScroll"></div>
     </div>
 
-    <div id="request-manager" class="admin-page hidden">
-        <div class="admin-box">
-            <div class="section-title"><i class="fa fa-bell"></i> Payment Requests</div>
-            <ul class="nav nav-pills mb-3" id="pills-tab">
-                <li class="nav-item"><button class="nav-link active" onclick="toggleRequestType('deposit')">Deposits</button></li>
-                <li class="nav-item"><button class="nav-link" onclick="toggleRequestType('withdraw')">Withdrawals</button></li>
-            </ul>
-            <div id="request-list">
-                <p class="text-center text-muted">अनुरोधहरू लोड हुँदैछन्...</p>
+    <div class="admin-card">
+        <div class="form-group">
+            <label>समाचारको शीर्षक</label>
+            <input type="text" id="title" placeholder="हेडलाइन...">
+        </div>
+
+        <div class="form-group">
+            <label>फोटो छान्नुहोस्</label>
+            <input type="file" id="file-input" accept="image/*" onchange="previewImage(this)">
+            <div class="preview-box" onclick="document.getElementById('file-input').click()">
+                <img id="main-img-preview" style="display:none;">
+                <div id="upload-placeholder" style="text-align:center; color:#888;">
+                    <i class="fas fa-images" style="font-size:40px;"></i>
+                    <p>फोटो छान्न यहाँ थिच्नुहोस्</p>
+                </div>
             </div>
         </div>
-    </div>
 
-    <div id="home-manager" class="admin-page hidden">
-        <div class="admin-box">
-            <div class="section-title"><i class="fa fa-home"></i> Home Page Control</div>
-            <label>बाकस छान्नुहोस्:</label>
-            <select id="h-cat" class="form-select">
-                <option value="E-Book">E-Book</option>
-                <option value="Notice">Notice (सूचना)</option>
-                <option value="PDF">PDF Notes</option>
-
-
-
-
-            </select>
-            <textarea id="h-text" class="form-control mt-2" rows="4" placeholder="यहाँ विवरण लेखुहोस्..."></textarea>
-            <input type="text" id="h-link" class="form-control mt-2" placeholder="File Link (Optional)">
-            <button class="btn-publish" onclick="saveHomeDataFirebase()">Publish to Home</button>
+        <div class="form-group">
+            <label>विवरण</label>
+            <textarea id="desc" rows="8" placeholder="समाचारको विवरण..."></textarea>
         </div>
+
+        <button class="publish-btn" id="submitBtn" onclick="uploadPost()">पोस्ट पब्लिश गर्नुहोस्</button>
     </div>
 
-    <div id="sidebar-manager" class="admin-page hidden">
-        <div class="admin-box">
-            <div class="section-title"><i class="fa fa-bars"></i> Sidebar GK Manager</div>
-            <select id="s-cat" class="form-select mb-2">
-                <option>Kharidar</option><option>Subba</option><option>Army</option><option>NepalPolice</option><option>APF</option>
-            </select>
-            <select id="s-type" class="form-select mb-2">
-                <option value="New GK">New GK</option>
-                <option value="Old GK">Old GK</option>
-                <option value="Exam">Exam</option>
-            </select>
-            <textarea id="s-gk" class="form-control" rows="6" placeholder="GK content here..."></textarea>
-            <button class="btn-publish" style="background: #1a1a2e" onclick="saveSidebarDataFirebase()">Save GK Set</button>
-        </div>
+    <div class="post-list" id="display-list">
+        <h3>हालका पोस्टहरू (Live)</h3>
     </div>
+</div>
 
-    <div class="bottom-nav">
-        <div class="nav-item active" onclick="showTab('dashboard-page', this)"><i class="fa fa-chart-line d-block"></i>Stats</div>
-        <div class="nav-item" onclick="showTab('request-manager', this)"><i class="fa fa-hand-holding-dollar d-block"></i>Requests</div>
-        <div class="nav-item" onclick="showTab('home-manager', this)"><i class="fa fa-home d-block"></i>Home</div>
-        <div class="nav-item" onclick="showTab('sidebar-manager', this)"><i class="fa fa-list d-block"></i>GK Menu</div>
-    </div>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getDatabase, ref, onValue, set, push, remove, get, update } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+    const firebaseConfig = {
+        apiKey: "1ce07fc2347e93005cf3399105421644",
+        authDomain: "news-channel-4116c.firebaseapp.com",
+        projectId: "news-channel-4116c",
+        storageBucket: "news-channel-4116c.firebasestorage.app",
+        messagingSenderId: "762705666491",
+        appId: "1:762705666491:web:6552eeecb9dabd9f34249e"
+    };
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyBa2KIp-e3exRp3QDhMglpLSzWi55Os_Yc",
-            authDomain: "education-57389.firebaseapp.com",
-            projectId: "education-57389",
-            storageBucket: "education-57389.firebasestorage.app",
-            messagingSenderId: "868253124052",
-            appId: "1:868253124052:web:def7f228d820015eb10241",
-            databaseURL: "https://education-57389-default-rtdb.firebaseio.com"
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // तपाईँले भर्खरै दिनुभएको नयाँ Key
+    const IMGBB_API_KEY = "21e168aa171998d73ef8f4bc18d5d282";
+
+    const categories = ["होमपेज", "समाचार", "बिजनेस", "सेयर मार्केट", "स्वास्थ्य", "जीवनशैली", "मनोरञ्जन", "पात्रो", "खेलकुद", "विचार", "राशिफल", "नयाँ विज्ञापन", "आर्मी तयारी", "प्रहरी तयारी", "ससस्त्र तयारी", "Biography", "जानकारी"];
+    let selectedCategory = "समाचार";
+
+    const scroll = document.getElementById('catScroll');
+    categories.forEach(cat => {
+        const div = document.createElement('div');
+        div.className = `cat-item ${cat === selectedCategory ? 'active' : ''}`;
+        div.innerHTML = `<span>${cat}</span>`;
+        div.onclick = () => {
+            document.querySelectorAll('.cat-item').forEach(el => el.classList.remove('active'));
+            div.classList.add('active');
+            selectedCategory = cat;
         };
+        scroll.appendChild(div);
+    });
 
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
+    window.previewImage = (input) => {
+        const file = input.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                document.getElementById('main-img-preview').src = e.target.result;
+                document.getElementById('main-img-preview').style.display = 'block';
+                document.getElementById('upload-placeholder').style.display = 'none';
+            };
+            reader.readAsDataURL(file);
+        }
+    };
 
-        // --- Stats ---
-        onValue(ref(db, 'users'), (s) => document.getElementById('count-total').innerText = s.val() ? Object.keys(s.val()).length : 0);
-        
-        // --- Request Loading Logic ---
-        let currentView = 'deposit';
-        window.toggleRequestType = (type) => {
-            currentView = type;
-            document.querySelectorAll('#pills-tab .nav-link').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            loadRequests();
-        };
+    window.uploadPost = async () => {
+        const title = document.getElementById('title').value.trim();
+        const desc = document.getElementById('desc').value.trim();
+        const fileInput = document.getElementById('file-input');
+        const btn = document.getElementById('submitBtn');
 
-        function loadRequests() {
-            const listDiv = document.getElementById('request-list');
-            listDiv.innerHTML = "<p class='text-center'>लोड हुँदैछ...</p>";
+        if (!title || !desc || !fileInput.files[0]) {
+            alert("कृपया सबै विवरण भर्नुहोस्!");
+            return;
+        }
 
-            onValue(ref(db, `requests/${currentView}s`), (snapshot) => {
-                listDiv.innerHTML = "";
-                const data = snapshot.val();
-                if(!data) return listDiv.innerHTML = "<p class='text-center text-muted'>कुनै पेन्डिङ अनुरोध छैन।</p>";
+        btn.disabled = true;
+        btn.innerText = "अपलोड हुँदैछ...";
 
-                Object.keys(data).forEach(key => {
-                    const req = data[key];
-                    if(req.status === 'pending') {
-                        const card = document.createElement('div');
-                        card.className = "request-card shadow-sm";
-                        card.innerHTML = `
-                            <div class="request-info">
-                                <strong>Amount: रू ${req.amount}</strong><br>
-                                <small>User ID: ${req.uid}</small><br>
-                                <small>${currentView === 'deposit' ? 'Trx ID: ' + req.trxID : 'Number: ' + req.number}</small>
-                            </div>
-                            <div class="btn-group-sm">
-                                <button class="btn btn-success" onclick="approveRequest('${key}', '${req.uid}', ${req.amount}, '${currentView}')">Approve</button>
-                                <button class="btn btn-outline-danger" onclick="rejectRequest('${key}', '${currentView}')">Reject</button>
-                            </div>
-                        `;
-                        listDiv.appendChild(card);
-                    }
-                });
+        try {
+            // १. ImgBB Upload
+            let formData = new FormData();
+            formData.append("image", fileInput.files[0]);
+
+            const imgRes = await fetch(`https://api.imgbb.com/1/upload?key=${IMGBB_API_KEY}`, {
+                method: "POST",
+                body: formData
             });
+            const imgData = await imgRes.json();
+            
+            if(!imgData.success) throw new Error("ImgBB Error: " + imgData.error.message);
+            const finalImageUrl = imgData.data.url;
+
+            // २. Firestore Save
+            await addDoc(collection(db, "posts"), {
+                title, desc, category: selectedCategory, image: finalImageUrl, views: 0, date: new Date().toISOString()
+            });
+
+            alert("पब्लिश भयो!");
+            location.reload();
+        } catch (error) {
+            console.error(error);
+            alert("त्रुटि: " + error.message); // यसले ठ्याक्कै के बिग्रियो देखाउँछ
+            btn.disabled = false;
+            btn.innerText = "पोस्ट पब्लिश गर्नुहोस्";
         }
+    };
 
-        // --- Action Functions ---
-        window.approveRequest = async (reqKey, uid, amount, type) => {
-            if(!confirm("के तपाईं यो अनुरोध स्वीकृत गर्न चाहनुहुन्छ?")) return;
+    async function loadPosts() {
+        const q = query(collection(db, "posts"), orderBy("date", "desc"));
+        const querySnapshot = await getDocs(q);
+        const listArea = document.getElementById('display-list');
+        
+        querySnapshot.forEach((docSnap) => {
+            const post = docSnap.data();
+            listArea.innerHTML += `
+                <div class="post-item">
+                    <div class="post-info">
+                        <img src="${post.image}">
+                        <h4 style="font-size:12px;">${post.title.substring(0, 30)}...</h4>
+                    </div>
+                    <i class="fas fa-trash-alt" style="color:red; cursor:pointer;" onclick="window.deletePost('${docSnap.id}')"></i>
+                </div>
+            `;
+        });
+    }
 
-            try {
-                const userRef = ref(db, `users/${uid}`);
-                const userSnap = await get(userRef);
-                
-                if(userSnap.exists()){
-                    let currentBal = parseFloat(userSnap.val().balance || 0);
-                    let newBal = (type === 'deposit') ? (currentBal + parseFloat(amount)) : currentBal; 
-                    // Note: Withdrawal मा युजरले रिक्वेस्ट गर्दा नै ब्यालेन्स घटिसकेको हुन्छ (User side code अनुसार)
-                    // त्यसैले यहाँ ब्यालेन्स चलाउनु पर्दैन, मात्र रिक्वेस्ट 'completed' गर्ने।
-                    
-                    if(type === 'deposit'){
-                        await update(userRef, { balance: newBal });
-                    }
-                    
-                    await remove(ref(db, `requests/${type}s/${reqKey}`));
-                    alert("Approve गरियो!");
-                }
-            } catch (e) { alert("Error: " + e.message); }
-        };
-
-        window.rejectRequest = (reqKey, type) => {
-            if(confirm("यो अनुरोध अस्वीकृत गर्ने?")) {
-                remove(ref(db, `requests/${type}s/${reqKey}`));
-            }
-        };
-
-        // --- Original Functions ---
-        window.saveHomeDataFirebase = () => {
-            const cat = document.getElementById('h-cat').value;
-            set(ref(db, 'home_content/' + cat), { text: document.getElementById('h-text').value, link: document.getElementById('h-link').value }).then(() => alert("Home Updated!"));
-        };
-
-        window.saveSidebarDataFirebase = () => {
-            push(ref(db, `sidebar_gk/${document.getElementById('s-cat').value}/${document.getElementById('s-type').value}`), { content: document.getElementById('s-gk').value }).then(() => alert("GK Saved!"));
-        };
-
-        // Initial Load
-        loadRequests();
-    </script>
-
-    <script>
-        function showTab(id, el) {
-            document.querySelectorAll('.admin-page').forEach(p => p.classList.add('hidden'));
-            document.getElementById(id).classList.remove('hidden');
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            el.classList.add('active');
+    window.deletePost = async (id) => {
+        if (confirm("हटाउने?")) {
+            await deleteDoc(doc(db, "posts", id));
+            location.reload();
         }
-    </script>
+    };
+
+    loadPosts();
+</script>
 </body>
 </html>
-अरु सब thik छ notice भएको ठाउमा quiz पनि ad गरि दिनुस
